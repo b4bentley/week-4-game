@@ -1,0 +1,16 @@
+body{
+	background-image: url(../../assets/images/xWing.png);
+	background-image: no-repeat;
+}
+	
+.wrapper{
+	max-width:960px;
+	/*margin: 0 auto;*/
+	
+}
+
+#innitialCharacterStaging img{
+	width: 125px;
+	height: 125px;
+	/*float: left;*/
+}

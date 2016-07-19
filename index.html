@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Star Wars (Instructor) RPG</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">	
+
+</head>
+<body>
+	<div class="wrapper">
+
+		<div class="row">
+			<!-- Hold innitial character list -->
+			<div class="col-lg-8" id="innitialCharacterStaging">		
+			</div><!--end character list -->
+		</div>	
+		
+		<div class="row">
+			<div class="col-lg-8">
+				<h1>Your Character</h1>
+			</div>
+		</div>
+		
+		<div class="row">
+			<!-- Hold your character list -->
+			<div class="col-lg-8" id="selectedCharacter">
+			</div><!--end your character list -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<h1>Enemies Available to Attack</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<!-- Hold your enemy attack list -->
+			<div class="col-lg-8" id="enemyAttackList">
+				
+			</div><!--end your enemy attack list -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<h1>Fight Section</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-2">
+				<button class="btn btn-default">
+					Attack
+				</button>
+
+				<button class="btn btn-default">
+					Reset
+				</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<h1>Defender</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<!--hold your enemy defending list -->
+			<div class="col-lg-8" id="enemyDefenderList">
+				
+			</div><!-- end your enemy defend list -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8" id="stats">
+				<!-- section for updating battle stats -->
+			</div>
+		</div>
+
+	</div><!-- wrapper -->
+
+
+<script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="assets/javascript/game.js"></script>
+</body>
+</html>

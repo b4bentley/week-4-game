@@ -14,3 +14,14 @@ body{
 	height: 125px;
 	/*float: left;*/
 }
+
+#selectedCharacter img{
+	width: 125px;
+	height: 125px;
+
+}
+
+#enemyDefenderList img{
+	width: 125px;
+	height: 125px;
+}

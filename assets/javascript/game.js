@@ -1,6 +1,16 @@
+
+
 $(document).ready(function(){
+	
 	var playerSelected = false;
 	var enemySelected = false;
+
+	var wins=0;
+	var attackConstant;
+	var constant=0;
+
+	var buttonPlayerThis;
+	var buttonEnemyThis;
 
 	var characterSelected=[];
 	var enemyList=[];
@@ -48,11 +58,11 @@ $(document).ready(function(){
 	for(var i =0; i < characterList.length; i++){
 		var button = $('<button/>');
 		button.addClass('characterId '+ characterList[i].id);
-		button.attr('data-id', characterList[i].id);
-		button.attr('data-jediName', characterList[i].jediName);
-		button.attr('data-health', characterList[i].health);
-		button.attr('data-attack', characterList[i].attack);
-		button.attr('data-counterAttack', characterList[i].counterAttack);
+		button.data('id', characterList[i].id);
+		button.data('jediName', characterList[i].jediName);
+		button.data('health', characterList[i].health);
+		button.data('attack', characterList[i].attack);
+		button.data('counterAttack', characterList[i].counterAttack);
 		button.attr('id', characterList[i].id);
 
 		button.html(characterList[i].img);
@@ -71,12 +81,8 @@ $(document).ready(function(){
 				if ($(this).attr('id') != characterList[i].id){
 					$('#enemyAttackList').append($("#innitialCharacterStaging"));
 				}else{
-
-
+					buttonPlayerThis=$(this);
 					$(this).appendTo('#selectedCharacter').attr('active', true);
-
-					// $('#selectedCharacter').append(this)
-					// this.attr('active', true);
 					console.log($(this).attr('active'));
 				}
 			}
@@ -84,9 +90,10 @@ $(document).ready(function(){
 		else if(playerSelected == true && enemySelected == false){
 
 			if($('#selectedCharacter').children().length && $(this).attr('active')){
-				console.log("already selected main character");
+				console.log("already selected a main character... please select an enemy character");
 			}else{
 				enemySelected = true;
+				buttonEnemyThis = $(this);
 				$('#enemyDefenderList').append(this);
 			}
 			
@@ -98,6 +105,77 @@ $(document).ready(function(){
 		console.log('Attack button clicked');
 
 		if(playerSelected==true && enemySelected==true){
+			// var laser = new Audio("assests/sound/laserAttack.mp3");
+			// laser.play();
+
+			var healthEnemy = buttonEnemyThis.data('health');
+			var attackEnemy = buttonEnemyThis.data('attack');
+			var counterEnemy = buttonEnemyThis.data('counterAttack');
+
+			var healthCharacter = buttonPlayerThis.data('health');
+			var attackCharacter = buttonPlayerThis.data('attack');
+			var counterCharacter = buttonPlayerThis.data('counterAttack');
+
+			var newHealthEnemy = healthEnemy - attackCharacter;
+			var newHealthCharacter = healthCharacter;
+			var newAttackCharacter = attackCharacter;
+
+			
+				//first attack, Figure out constant attack variable
+				if(constant == 0 ){
+					constant++;
+					attackConstant = buttonPlayerThis.data('attack');
+
+					newHealthCharacter = newHealthCharacter - counterEnemy; 
+					newAttackCharacter = newAttackCharacter;
+					buttonPlayerThis.data('attack', newAttackCharacter);
+					buttonEnemyThis.data('health', newHealthEnemy);
+					buttonPlayerThis.data('health',newHealthCharacter);
+
+					console.log("health player: " + buttonPlayerThis.data('health'));
+				 	console.log("attack: " + buttonPlayerThis.data('attack'))
+				 	console.log("health enemy: " + buttonEnemyThis.data('health'));
+					console.log("constant: "+ attackConstant);
+
+				// atack and set new updated health
+				}else if(newHealthEnemy > 0 && constant>0){
+					newHealthCharacter = newHealthCharacter - counterEnemy; 
+					newAttackCharacter = newAttackCharacter + attackConstant;
+						console.log("health player: " + buttonPlayerThis.data('health'));
+						console.log("attack: " + buttonPlayerThis.data('attack'))
+						console.log("health enemy: " + buttonEnemyThis.data('health'));
+					
+
+					if(newHealthCharacter> 0){
+						buttonPlayerThis.data('attack', newAttackCharacter);
+						buttonEnemyThis.data('health', newHealthEnemy);
+						buttonPlayerThis.data('health',newHealthCharacter);
+						console.log("health player: " + buttonPlayerThis.data('health'));
+						console.log("attack: " + buttonPlayerThis.data('attack'))
+						console.log("health enemy: " + buttonEnemyThis.data('health'));
+					}else{
+						buttonPlayerThis.data('health',newHealthCharacter);
+						console.log("health player: " + buttonPlayerThis.data('health'));
+						$('.resetButton').show();
+						$('.attackButton').hide();
+					}
+
+
+				}else{
+					newAttackCharacter = newAttackCharacter + attackConstant;
+					buttonPlayerThis.data('attack', newAttackCharacter);
+					wins++;
+					enemySelected=false;
+					$('#enemyDefenderList').empty();
+
+				}
+
+				if(wins>2){
+				$('.resetButton').show();
+				$('.attackButton').hide();
+
+
+				}
 
 		}else if(playerSelected==true && enemySelected ==false){
 			alert("please select an enemy to attack");
@@ -106,4 +184,12 @@ $(document).ready(function(){
 		}
 	});
 
+
+	$('.resetButton').on('click', function(){
+		location.reload();
+
+	});
+
+
 });
+

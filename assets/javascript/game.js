@@ -65,7 +65,10 @@ $(document).ready(function(){
 		button.data('counterAttack', characterList[i].counterAttack);
 		button.attr('id', characterList[i].id);
 
-		button.html(characterList[i].img);
+		// var healthTag = $('<p>').append(characterList[i].health).append('</p>');
+		
+
+		button.html(characterList[i].jediName + '<br>' + characterList[i].img).append( '<br> <p id="healthTag"> ' + characterList[i].health + '</p>' );
 		$("#innitialCharacterStaging").append(button);
 	}
 
@@ -132,6 +135,12 @@ $(document).ready(function(){
 					buttonEnemyThis.data('health', newHealthEnemy);
 					buttonPlayerThis.data('health',newHealthCharacter);
 
+
+					$('#healthTag').empty().append(buttonPlayerThis.data('health'));
+
+					$('#stats').append("you attacked " + buttonEnemyThis.data('jediName') + " for " + buttonPlayerThis.data('attack') + 
+						"<br>" + buttonEnemyThis.data('jediName') + " attacked you for " + buttonEnemyThis.data('counterAttack')+ " damage.");
+
 					console.log("health player: " + buttonPlayerThis.data('health'));
 				 	console.log("attack: " + buttonPlayerThis.data('attack'))
 				 	console.log("health enemy: " + buttonEnemyThis.data('health'));
@@ -150,13 +159,27 @@ $(document).ready(function(){
 						buttonPlayerThis.data('attack', newAttackCharacter);
 						buttonEnemyThis.data('health', newHealthEnemy);
 						buttonPlayerThis.data('health',newHealthCharacter);
+
+						$('#stats').empty();
+
+						$('#stats').append("you attacked " + buttonEnemyThis.data('jediName') + " for " + buttonPlayerThis.data('attack') + 
+						"<br>" + buttonEnemyThis.data('jediName') + " attacked you for " + buttonEnemyThis.data('counterAttack')+ " damage.");
+
+						$('#healthTag').empty().append(buttonPlayerThis.data('health'));
+						
 						console.log("health player: " + buttonPlayerThis.data('health'));
 						console.log("attack: " + buttonPlayerThis.data('attack'))
 						console.log("health enemy: " + buttonEnemyThis.data('health'));
 					}else{
 						buttonPlayerThis.data('health',newHealthCharacter);
-						console.log("health player: " + buttonPlayerThis.data('health'));
-						$('.resetButton').show();
+						$('#healthTag').empty().append(buttonPlayerThis.data('health'));
+
+						$('#stats').empty();
+
+						$('#stats').append("you have been defeated.. GAME OVER.");
+
+						console.log("health player: " + buttonPlayerThis.data('health'))
+;						$('.resetButton').show();
 						$('.attackButton').hide();
 					}
 
@@ -166,6 +189,13 @@ $(document).ready(function(){
 					buttonPlayerThis.data('attack', newAttackCharacter);
 					wins++;
 					enemySelected=false;
+
+					
+					
+					$('#stats').empty();
+
+					$('#stats').append("you have defeated " + buttonEnemyThis.data('jediName') + ", you can choose to fight another enemy." );
+
 					$('#enemyDefenderList').empty();
 
 				}
